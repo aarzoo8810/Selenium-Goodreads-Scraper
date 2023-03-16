@@ -15,19 +15,26 @@ class GoodreadsScraper:
 
     def search(self):
         self.driver.get(GOODREADS_URL)
-        time.sleep(5)
-        print(">>>Browser Opened")
+        time.sleep(10)
+        print(">>>Browser Opened\n\n\n")
+        if "sign_up" in self.driver.current_url:
+            self.driver.back()
 
         title = self.driver.find_element(by=By.TAG_NAME,
                                          value="h1").text
         print(f"{title = }")
 
-        author_illustrator = self.driver.find_elements(By.CLASS_NAME,
-                                          value="ContributorLink__name")
-        author = author_illustrator[0].text
-        illustrator = author_illustrator[1].text
-        print(f"{author = }")
-        print(f"{illustrator = }")
+        poster_img_div = self.driver.find_element(by=By.CLASS_NAME, value="BookCover")
+        poster_img_url = poster_img_div.find_element(By.CLASS_NAME, "ResponsiveImage").get_attribute("src")
+        print(f"{poster_img_url = }")
+
+        author_illustrator = self.driver.find_element(By.CLASS_NAME,
+                                          value="ContributorLinksList").text.replace("\n ", "").replace("\n", "")
+        print(f"{author_illustrator = }")
+        # author = author_illustrator[0].text
+        # illustrator = author_illustrator[1].text
+        # print(f"{author = }")
+        # print(f"{illustrator = }")
         
         description = self.driver.find_element(By.CLASS_NAME,
                                                value="Formatted").get_attribute("innerHTML")
@@ -35,7 +42,7 @@ class GoodreadsScraper:
         
         genre_more_btn = self.driver.find_element(By.CLASS_NAME,
                                                   value="Button__container")
-        genre_more_btn.click()
+        # genre_more_btn.click()
         
         genre_list = [genre.text for genre in self.driver.find_elements(By.CSS_SELECTOR,
                                                value="html body div#__next div.PageFrame.PageFrame--siteHeaderBanner main.PageFrame__main.BookPage div.BookPage__gridContainer div.BookPage__rightColumn div.BookPage__mainContent div.BookPageMetadataSection div.BookPageMetadataSection__genres ul.CollapsableList div.Button__container")]

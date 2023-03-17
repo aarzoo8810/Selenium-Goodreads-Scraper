@@ -34,9 +34,8 @@ class GoodreadsScraper:
         print(f"{poster_img_url = }")
 
         contributors = self.driver.find_element(By.CLASS_NAME,
-                                                      value="ContributorLinksList").text.replace("\n ", "").replace("\n", "")
+                                                value="ContributorLinksList").text.replace("\n ", "").replace("\n", "")
         print(f"{contributors = }")
-        
 
         description = self.driver.find_element(
             By.CLASS_NAME, value="Formatted").get_attribute("innerHTML")
@@ -51,6 +50,10 @@ class GoodreadsScraper:
                       (By.CLASS_NAME, value="BookPageMetadataSection__genreButton")]
 
         print(f"{genre_list = }")
+
+        num_of_pages = self.driver.find_element(By.CSS_SELECTOR,
+                                                value=".FeaturedDetails > p:nth-child(1)").text
+        print(f"{num_of_pages = }")
 
 
 ob = GoodreadsScraper()

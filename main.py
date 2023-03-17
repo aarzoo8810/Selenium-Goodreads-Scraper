@@ -51,9 +51,29 @@ class GoodreadsScraper:
 
         print(f"{genre_list = }")
 
-        num_of_pages = self.driver.find_element(By.CSS_SELECTOR,
+        page_edition = self.driver.find_element(By.CSS_SELECTOR,
                                                 value=".FeaturedDetails > p:nth-child(1)").text
-        print(f"{num_of_pages = }")
+        
+        num_of_pages = None
+        edition = page_edition
+        if "pages" in page_edition:
+            num_of_pages, edition = page_edition.split(" pages, ")
+            
+        print(f"{int(num_of_pages) = }")
+        print(f"{edition = }")
+        
+        published_date = self.driver.find_element(By.CSS_SELECTOR,
+                                                  value=".FeaturedDetails > p:nth-child(2)").text.split("published ")[-1]
+        print(f"{published_date = }")
+        
+        book_details_btn = self.driver.find_element(By.CSS_SELECTOR,
+                                                    value="div.CollapsableList > div:nth-child(3)")
+        book_details_btn.click()
+        
+        original_title = self.driver.find_element(By.CSS_SELECTOR,
+                                                  value=".WorkDetails > div:nth-child(2) > dd:nth-child(2) > div:nth-child(1) > div:nth-child(1)").text
+        print(f"original_title = ")
+        
 
 
 ob = GoodreadsScraper()

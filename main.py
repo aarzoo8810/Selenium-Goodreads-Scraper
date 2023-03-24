@@ -103,8 +103,8 @@ def scrape_book_links():
                     
                     for url in recommended_book_urls:
                         if url not in book_url_list and len(book_url_list) < url_limit:
-                            url_book_list.append(url)
-                            print(len(url_book_list))
+                            book_url_list.append(url)
+                            print(len(book_url_list))
                             
                     
                     book_item = {"title": title,
@@ -126,7 +126,6 @@ def scrape_book_links():
 
 
     return book_items
-    
 
 
 def save_data_to_file(book_items):

@@ -132,9 +132,10 @@ def scrape_book_links():
 def save_data_to_file(book_items):
     """This takes list dictionary which are book_items"""
     df = pandas.DataFrame.from_dict(book_items, orient='columns')
-    
+    df.to_csv("books.csv")
 
 
+book_items = scrape_book_links()
+save_data_to_file(book_items=book_items)
 
-scrape_book_links()
 
